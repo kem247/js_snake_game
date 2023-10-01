@@ -21,6 +21,12 @@ const draw = () => {
 // draw apples
     ctx.fillStyle = 'rgb(255,50,0)'
     ctx.fillRect(x(state.apple.x), y(state.apple.y), x(1), y(1))
+
+// snake crashes
+    if(state.snake.length === 0) {
+        ctx.fillStyle = 'rgb(255,0,0)'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
 }
 
 
