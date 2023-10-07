@@ -19,6 +19,13 @@ const validMove = move => state =>
 // Next values based on state
 const nextMoves = state => state.moves.length > 1 ? dropFirst(state.moves) : state.moves
 const nextApple = state => willEat(state) ? rndPos(state) : state.apple
+const nextHead = state => state
+
+const nextSnake = state => willCrash(state) 
+    ? []
+    : (willEat(state)
+    ? [nextHead(state)].concat(state.snake)
+    : [nextHead(state)].concat(dropLast(state.snake)))
 
 // Initial State
 const initialState = () => ({
@@ -45,7 +52,6 @@ const next = spec({
     snake: nextSnake,
     apple: nextApple
 })
-
 
 const enqueue = (state, move) => validMove(move)(state)
 ? merge(state)({ moves: state.moves.concat([move])}) : 
