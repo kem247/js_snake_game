@@ -19,7 +19,12 @@ const validMove = move => state =>
 // Next values based on state
 const nextMoves = state => state.moves.length > 1 ? dropFirst(state.moves) : state.moves
 const nextApple = state => willEat(state) ? rndPos(state) : state.apple
-const nextHead = state => state
+const nextHead = state => state.snake.length === 0 
+    ? { x: 2, y: 2} //starting position
+    : {
+        x: mod(state.cols)(state.snake[0].x + state.moves[0].x),
+        y: mod(state.rows)(state.snake[0].x + state.moves[0].y)
+    }
 
 const nextSnake = state => willCrash(state) 
     ? []
